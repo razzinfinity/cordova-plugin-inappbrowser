@@ -948,21 +948,31 @@ public class InAppBrowser extends CordovaPlugin {
                         Log.d(LOG_TAG, "File Chooser 5.0+");
                         mUploadCallback = filePathCallback;
                         if (fileChooserParams.isCaptureEnabled()) {
+                            Log.d(LOG_TAG, "------> 1");
                             if (PermissionHelper.hasPermission(InAppBrowser.this, Manifest.permission.CAMERA) && PermissionHelper.hasPermission(InAppBrowser.this, Manifest.permission.READ_EXTERNAL_STORAGE) && PermissionHelper.hasPermission(InAppBrowser.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                                Log.d(LOG_TAG, "------> 2");
                                 try {
+                                    Log.d(LOG_TAG, "------> 5");
                                     Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                                    Log.d(LOG_TAG, "------> 6");
                                     File photoFile = createImageFile(); // Create a temporary file for the image
+                                    Log.d(LOG_TAG, "------> 7");
                                     mCurrentPhotoUri = FileProvider.getUriForFile(cordova.getActivity(),
                                             InAppBrowser.this.cordova.getContext().getPackageName() + ".cordova.plugin.camera.provider",
                                             photoFile);
+                                    Log.d(LOG_TAG, "------> 8");
                                     intent.putExtra(MediaStore.EXTRA_OUTPUT, mCurrentPhotoUri);
+                                    Log.d(LOG_TAG, "------> 9");
                                     cordova.startActivityForResult(InAppBrowser.this, intent, CAMERA_REQUEST_CODE);
+                                    Log.d(LOG_TAG, "------> 10");
                                 } catch (Exception e) {
                                     // Handle exception if no file picker is available
-                                    Log.e("Exception", e.getMessage());
+                                    Log.d(LOG_TAG, "------> 3");
+                                    Log.e(LOG_TAG, e.getMessage());
                                     return false;
                                 }
                             } else {
+                                Log.d(LOG_TAG, "------> 4");
                                 ArrayList<String> permissions = new ArrayList<>();
                                 permissions.add(Manifest.permission.CAMERA);
                                 permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -1153,19 +1163,26 @@ public class InAppBrowser extends CordovaPlugin {
 
     private File createImageFile() {
         // Create an image file name
+        Log.d(LOG_TAG, "------> 11");
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        Log.d(LOG_TAG, "------> 12");
         String imageFileName = "JPEG_" + timeStamp + "_";
+        Log.d(LOG_TAG, "------> 13");
         File storageDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES);
+        Log.d(LOG_TAG, "------> 14");
         File image = null;
+        Log.d(LOG_TAG, "------> 15");
         try {
             image = File.createTempFile(
                     imageFileName,  /* prefix */
                     ".jpg",         /* suffix */
                     storageDir      /* directory */
+                    Log.d(LOG_TAG, "------> 16");
             );
         } catch (IOException e) {
-            Log.e("LOGGER", "-------->12 " + e.getMessage());
+            Log.d(LOG_TAG, "------> 17");
+            Log.d(LOG_TAG, "------> Exce "+e.getMessage());
             throw new RuntimeException(e);
 
         }
