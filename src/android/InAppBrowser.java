@@ -980,6 +980,7 @@ public class InAppBrowser extends CordovaPlugin {
                                 PermissionHelper.requestPermissions(InAppBrowser.this, TAKE_PIC_SEC, permissions.toArray(new String[0]));
                             }
                         } else {
+                              Log.d(LOG_TAG, "------> 11");
                             // Create File Chooser Intent
                             Intent content = new Intent(Intent.ACTION_GET_CONTENT);
                             content.addCategory(Intent.CATEGORY_OPENABLE);
